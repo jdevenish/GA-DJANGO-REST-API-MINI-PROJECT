@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework', # <= Added by user
     'apps.authentication', # <= Added by user
     'apps.api', # <= Added by user
+    'corsheader',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +53,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'mockstagram.urls'
