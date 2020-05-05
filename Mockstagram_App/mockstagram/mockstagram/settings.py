@@ -40,9 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework', # <= Added by user
-    'apps.authentication', # <= Added by user
-    'apps.api', # <= Added by user
+    'rest_framework',  # <= Added by user
+    'apps.authentication',  # <= Added by user
+    'apps.api',  # <= Added by user
     'corsheaders',
 ]
 
@@ -62,7 +62,9 @@ CORS_ORIGIN_ALLOW_ALL = True  # If this is used then `CORS_ORIGIN_WHITELIST` wil
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ORIGIN_WHITELIST = (
-    'localhost:3000',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+    'https://dry-ravine-24300.herokuapp.com',
 )
 
 CORS_ALLOW_HEADERS = default_headers + (
