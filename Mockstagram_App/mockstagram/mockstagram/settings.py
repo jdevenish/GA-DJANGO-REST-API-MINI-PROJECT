@@ -27,7 +27,7 @@ SECRET_KEY = '6ngijpw1xs%filiag6=+e19@fe19hzu@zeh#%_fwor+pne#x8('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://dry-ravine-24300.herokuapp.com']
+ALLOWED_HOSTS = ['https://dry-ravine-24300.herokuapp.com', 'http://localhost:3000/']
 
 
 # Application definition
