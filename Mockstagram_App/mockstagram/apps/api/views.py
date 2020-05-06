@@ -6,12 +6,18 @@ from .models import Post, Profile
 from .serializers import PostSerializer, ProfileSerializer
 
 
+# ==========================================================================
+#
+#   ProfileViewSet:
+#       - Allow a logged in user to GET, UPDATE, & DELETE their profile
+#       - Unauthenticated requests will not be processed
+# ==========================================================================
 class ProfileViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
     serializer_class = ProfileSerializer
 
     def get_queryset(self):
-        return Profile.objects.all().filter(owner=self.request.user)
+        return Profile.objects.all().filter(is_public=True)
 
     # Auth Required???
     def create(self, request):
@@ -31,6 +37,13 @@ class ProfileViewSet(viewsets.ModelViewSet):
         serializer.save(owner=self.request.user)
 
 
+# ==========================================================================
+#
+#   ProfilePosts:
+#       - Allow a logged in user to GET all of the posts linked to their
+#         profile / account
+#       - Unauthenticated requests will not be processed
+# ==========================================================================
 class ProfilePosts(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = PostSerializer
@@ -45,6 +58,12 @@ class ProfilePosts(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 
+# ==========================================================================
+#
+#   SingleProfilePost:
+#       - Allow a logged in user to GET a single post from their profile
+#       - Unauthenticated requests will not be processed
+# ==========================================================================
 class SingleProfilePost(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = PostSerializer
@@ -56,6 +75,12 @@ class SingleProfilePost(generics.RetrieveUpdateDestroyAPIView):
         return queryset
 
 
+# ==========================================================================
+#
+#   PostViewSet:
+#       - Allow a logged in user to GET, UPDATE, & DELETE their profile
+#       - Unauthenticated requests will not be processed
+# ==========================================================================
 class PostViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
     serializer_class = PostSerializer
