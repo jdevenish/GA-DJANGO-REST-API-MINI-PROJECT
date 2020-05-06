@@ -18,7 +18,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         print("print:ProfileVIewSet:getQuerySet")
-        return Profile.objects.all().filter(is_public=True)
+        return Profile.objects.all().filter(pk=self.kwargs["pk"])
 
     # Auth Required???
     def create(self, request):
