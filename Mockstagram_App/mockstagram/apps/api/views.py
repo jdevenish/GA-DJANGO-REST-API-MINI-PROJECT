@@ -42,29 +42,6 @@ class ProfileViewSet(viewsets.ModelViewSet):
 
 # ==========================================================================
 #
-#   ProfilePosts:
-#       - Allow a logged in user to GET all of the posts linked to their
-#         profile / account
-#       - Unauthenticated requests will not be processed
-# ==========================================================================
-class ProfilePosts(generics.ListCreateAPIView):
-    permission_classes = (IsAuthenticated,)
-    serializer_class = PostSerializer
-
-    def get_queryset(self):
-        print("print:ProfilePosts:getQuerySet")
-        if self.kwargs.get('profile_pk'):
-            profile = Profile.objects.get(pk=self.kwargs['profile_pk'])
-            queryset = Post.objects.filter(owner=self.request.user, profile=profile)
-        return queryset
-
-    # def perform_create(self, serializer):
-    #     print("print:ProfilePosts:perform_create")
-    #     serializer.save(owner=self.request.user)
-
-
-# ==========================================================================
-#
 #   SingleProfilePost:
 #       - Allow a logged in user to GET a single post from their profile
 #       - Unauthenticated requests will not be processed
