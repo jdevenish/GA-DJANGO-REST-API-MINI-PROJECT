@@ -58,9 +58,9 @@ class ProfilePosts(generics.ListCreateAPIView):
             queryset = Post.objects.filter(owner=self.request.user, profile=profile)
         return queryset
 
-    def perform_create(self, serializer):
-        print("print:ProfilePosts:perform_create")
-        serializer.save(owner=self.request.user)
+    # def perform_create(self, serializer):
+    #     print("print:ProfilePosts:perform_create")
+    #     serializer.save(owner=self.request.user)
 
 
 # ==========================================================================
