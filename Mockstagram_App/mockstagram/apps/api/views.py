@@ -93,12 +93,13 @@ class PostViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         print("print:PostViewSet:get_queryset")
-        return Post.objects.all().filter(owner=self.request.user)
+        return Post.objects.all().filter(is_public=True)
 
     # Login Required
     def create(self, request, *args, **kwargs):
         print("print:PostViewSet:create")
-        if request.user.is_anonymous:
+        post = Post.objects.get(pk=self.kwargs['pk'])
+        if not request.user == post.owner:
             raise PermissionDenied("You need to create an account or login before creating a post")
         return super().create(request, *args, **kwargs)
 

@@ -11,7 +11,7 @@ router.register('posts', PostViewSet, basename='posts')
 
 # Interact with a specific profile or post
 custom_urlpatterns = [
-    url(r'profiles/(?P<profile_pk>\d+)/posts$', ProfilePosts.as_view(), name='profile_posts'),
+    # url(r'profiles/(?P<profile_pk>\d+)/posts$', ProfilePosts.as_view(), name='profile_posts'),
     url(r'profile/(?P<profile_pk>\d+)/posts/(?P<pk>\d+)$', SingleProfilePost.as_view(), name='single_profile_post')
 ]
 
