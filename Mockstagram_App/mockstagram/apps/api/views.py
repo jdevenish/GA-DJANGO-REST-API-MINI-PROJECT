@@ -18,7 +18,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         print("print:ProfileVIewSet:getQuerySet")
-        return Profile.objects.all().filter(pk=self.kwargs["pk"])
+        return Profile.objects.all().filter(is_public=True)
 
     # Auth Required???
     def create(self, request):
@@ -73,6 +73,7 @@ class SingleProfilePost(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PostSerializer
 
     def get_queryset(self):
+        print("print:SingleProfilePost:get_queryset")
         if self.kwargs.get("profile_pk") and self.kwargs.get('pk'):
             profile = Profile.objects.get(pk=self.kwargs['profile_pk'])
             queryset = Post.objects.filter(pk=self.kwargs['pk'], owner=self.request.user, profile=profile)
@@ -90,16 +91,19 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
 
     def get_queryset(self):
+        print("print:PostViewSet:get_queryset")
         return Post.objects.all().filter(owner=self.request.user)
 
     # Login Required
     def create(self, request, *args, **kwargs):
+        print("print:PostViewSet:create")
         if request.user.is_anonymous:
             raise PermissionDenied("You need to create an account or login before creating a post")
         return super().create(request, *args, **kwargs)
 
     # Auth Required
     def destroy(self, request, *args, **kwargs):
+        print("print:PostViewSet:destroy")
         post = Post.objects.get(pk=self.kwargs['pk'])
         if not request.user == post.owner:
             raise PermissionDenied("You do not have the permissions needed to delete this post")
@@ -107,6 +111,7 @@ class PostViewSet(viewsets.ModelViewSet):
 
     # Auth Required
     def update(self, request, *args, **kwargs):
+        print("print:PostViewSet:update")
         post = Post.objects.get(pk=self.kwargs['pk'])
         if not request.user == post.owner:
             raise PermissionDenied("You do not have the permissions needed to modify this post")
