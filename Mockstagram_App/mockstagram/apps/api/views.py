@@ -59,6 +59,7 @@ class ProfilePosts(generics.ListCreateAPIView):
         return queryset
 
     def perform_create(self, serializer):
+        print("print:ProfilePosts:perform_create")
         serializer.save(owner=self.request.user)
 
 
